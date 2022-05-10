@@ -11,14 +11,16 @@
 import React from 'react';
 import {Router} from './src/routes/router';
 import {Provider as PaperProvider} from 'react-native-paper';
-import {theme} from './src/styles/theme';
-import {DefaultLayout} from './src/layouts/DefaultLayout';
+import {theme} from './src/styles/themes';
+import {ThemeProvider} from "@emotion/react";
 
 const App = () => {
   return (
-    <PaperProvider theme={theme}>
-        <Router />
-    </PaperProvider>
+    <ThemeProvider theme={theme}>
+        <PaperProvider theme={theme}>
+            <Router />
+        </PaperProvider>
+    </ThemeProvider>
   );
 };
 

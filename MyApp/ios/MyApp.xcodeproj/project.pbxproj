@@ -30,6 +30,12 @@
 		2330761083AA47D7B0C9AB8E /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0943E791B5A840C08BFCE833 /* Octicons.ttf */; };
 		EBEA2D64DF9F46918794214A /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B951C2E8FA0453EACC08EBE /* SimpleLineIcons.ttf */; };
 		78382F6ABCB140CD933A6865 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A1E1495B26E846C4BE773C16 /* Zocial.ttf */; };
+		419BD8E6DA2B4EB99265ED34 /* gadugi-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF152F0AC8FB46C6BFD58BF2 /* gadugi-bold.ttf */; };
+		02C7AF25D66F44A3B66C01F9 /* gadugi-gras.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5E7160A606C4F8A9C02E5DE /* gadugi-gras.ttf */; };
+		F7C433C8F48943ECA8101FBC /* gadugi-normal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAF58F7356C34B25A845A5AA /* gadugi-normal.ttf */; };
+		27AAC40A066F432993F73EF0 /* gadugi-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 45B98B4955524A40A1FF1584 /* gadugi-bold.ttf */; };
+		F7111260A7104664820BF581 /* gadugi-gras.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5EA8519BF76F4F6DB286DAA1 /* gadugi-gras.ttf */; };
+		86B286830B82406EAB9575D1 /* gadugi-normal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 86A4593E49894D25ABBA0965 /* gadugi-normal.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +82,12 @@
 		0943E791B5A840C08BFCE833 /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		7B951C2E8FA0453EACC08EBE /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		A1E1495B26E846C4BE773C16 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BF152F0AC8FB46C6BFD58BF2 /* gadugi-bold.ttf */ = {isa = PBXFileReference; name = "gadugi-bold.ttf"; path = "../src/assets/fonts/gadugi-bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C5E7160A606C4F8A9C02E5DE /* gadugi-gras.ttf */ = {isa = PBXFileReference; name = "gadugi-gras.ttf"; path = "../src/assets/fonts/gadugi-gras.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		EAF58F7356C34B25A845A5AA /* gadugi-normal.ttf */ = {isa = PBXFileReference; name = "gadugi-normal.ttf"; path = "../src/assets/fonts/gadugi-normal.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		45B98B4955524A40A1FF1584 /* gadugi-bold.ttf */ = {isa = PBXFileReference; name = "gadugi-bold.ttf"; path = "../assets/fonts/gadugi-bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5EA8519BF76F4F6DB286DAA1 /* gadugi-gras.ttf */ = {isa = PBXFileReference; name = "gadugi-gras.ttf"; path = "../assets/fonts/gadugi-gras.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		86A4593E49894D25ABBA0965 /* gadugi-normal.ttf */ = {isa = PBXFileReference; name = "gadugi-normal.ttf"; path = "../assets/fonts/gadugi-normal.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +212,12 @@
 				0943E791B5A840C08BFCE833 /* Octicons.ttf */,
 				7B951C2E8FA0453EACC08EBE /* SimpleLineIcons.ttf */,
 				A1E1495B26E846C4BE773C16 /* Zocial.ttf */,
+				BF152F0AC8FB46C6BFD58BF2 /* gadugi-bold.ttf */,
+				C5E7160A606C4F8A9C02E5DE /* gadugi-gras.ttf */,
+				EAF58F7356C34B25A845A5AA /* gadugi-normal.ttf */,
+				45B98B4955524A40A1FF1584 /* gadugi-bold.ttf */,
+				5EA8519BF76F4F6DB286DAA1 /* gadugi-gras.ttf */,
+				86A4593E49894D25ABBA0965 /* gadugi-normal.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -317,6 +335,12 @@
 				2330761083AA47D7B0C9AB8E /* Octicons.ttf in Resources */,
 				EBEA2D64DF9F46918794214A /* SimpleLineIcons.ttf in Resources */,
 				78382F6ABCB140CD933A6865 /* Zocial.ttf in Resources */,
+				419BD8E6DA2B4EB99265ED34 /* gadugi-bold.ttf in Resources */,
+				02C7AF25D66F44A3B66C01F9 /* gadugi-gras.ttf in Resources */,
+				F7C433C8F48943ECA8101FBC /* gadugi-normal.ttf in Resources */,
+				27AAC40A066F432993F73EF0 /* gadugi-bold.ttf in Resources */,
+				F7111260A7104664820BF581 /* gadugi-gras.ttf in Resources */,
+				86B286830B82406EAB9575D1 /* gadugi-normal.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
