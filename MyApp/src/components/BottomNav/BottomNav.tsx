@@ -52,13 +52,13 @@ export const BottomNav: FC<BottomTabBarProps> = ({navigation, state, descriptors
     const computeIcon = useCallback((iconName) => {
         let icon: ReactElement | null;
         switch (iconName) {
-            case '/settings':
+            case 'Settings':
                 icon = <IconFeather style={{marginRight: 20}} size={20} name={'settings'}/>
                 break
-            case '/mining':
+            case 'Mining':
                 icon = <IconMaterialCommunityIcons style={{marginRight: 10}} size={20} name={'pickaxe'}/>
                 break
-            case '/wallet':
+            case 'Wallet':
                 icon = <IconIonicons style={{marginRight: 20}} size={20} name={'wallet-outline'}/>
                 break
         }

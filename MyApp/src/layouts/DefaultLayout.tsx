@@ -1,6 +1,5 @@
 import React, {FC} from 'react'
 import styled from "@emotion/native";
-import {BottomNav} from "../components/BottomNav/BottomNav";
 
 const StyledView = styled.View`
   background: white;

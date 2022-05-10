@@ -1,8 +1,8 @@
 import React, {FC} from 'react'
 import styled from "@emotion/native";
-import {Box} from "../Box/Box";
+import {Box} from "../UI/Box/Box";
 import {Text} from "react-native-paper";
-import {DeviceIcon} from "../Icons/Icons";
+import {DeviceIcon} from "../UI/Icons/Icons";
 import {useNavigation} from "@react-navigation/native";
 
 interface IProps {
@@ -45,10 +45,7 @@ export const DeviceCard: FC<IProps> = ({net, power, name, id}) => {
     const navigation = useNavigation()
 
     //@ts-ignore
-    return <Box maxWidth={302}
-                // onPress={navigation.navigate(id)}
-
-    >
+    return <Box maxWidth={302} onPress={() => navigation.navigate('/device', {id: 1})}>
         <StyledCard>
             <DeviceIcon/>
             <StyledDescription>

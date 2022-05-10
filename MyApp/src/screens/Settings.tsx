@@ -1,8 +1,9 @@
 import {FC, Fragment} from "react";
 import React from 'react'
 import {Text} from "react-native-paper";
-import {DeviceCard} from "../components/UI/DeviceCard/DeviceCard";
+import {DeviceCard} from "../components/DeviceCard/DeviceCard";
 import {DefaultLayout} from "../layouts/DefaultLayout";
+import {useTypedSelector} from "../hooks/hooks";
 
 
 const devices = [
@@ -27,9 +28,11 @@ const devices = [
 ]
 
 export const SettingScreen: FC = () => {
+    const {isSigned} = useTypedSelector(state => state.auth)
+
     return <DefaultLayout>
         <Text style={{marginBottom: 20}}>
-            Ваши оборудования
+            Ваши оборудования {isSigned}
         </Text>
 
         {

@@ -19,7 +19,7 @@ export const HeaderNav: FC = ({}) => {
     const navigation = useNavigation()
     return <StyledHeader>
         <BackAction
-            // onPress={() => navigation.goBack()}
+            onPress={() => navigation.goBack()}
         />
         <Content color={theme.colors.text} title={'Settings'}/>
         <Action icon={'face-man'}/>
