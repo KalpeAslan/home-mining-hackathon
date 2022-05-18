@@ -1,1 +1,1 @@
-declare module 'react-native-speedometer';
+declare module 'react-native-speedometer'

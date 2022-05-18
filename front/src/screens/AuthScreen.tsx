@@ -1,12 +1,13 @@
 import React, {FC} from 'react'
-import {DefaultLayout} from "../layouts/DefaultLayout";
-import {AuthForm} from "../components/Forms/AuthForm";
+import {DefaultLayout} from '../layouts/DefaultLayout'
+import {AuthForm} from '../components/Forms/AuthForm'
 
-interface IProps {
-}
+interface IProps {}
 
 export const AuthScreen: FC<IProps> = ({}) => {
-    return <DefaultLayout>
-        <AuthForm/>
+  return (
+    <DefaultLayout>
+      <AuthForm />
     </DefaultLayout>
+  )
 }

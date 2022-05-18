@@ -1,8 +1,7 @@
-
 interface IState {
-    isSigned: boolean
+  isSigned: boolean
 }
 
 export const initialState: IState = {
-    isSigned: false
+  isSigned: false,
 }

@@ -1,11 +1,23 @@
 import React, {FC} from 'react'
-import {DeviceForm} from "../components/Forms/DeviceForm";
+import {DeviceForm} from '../components/Forms/DeviceForm'
+import {RouteProp, useRoute} from '@react-navigation/native'
+import {Text} from 'react-native'
+import {DefaultLayout} from '../layouts/DefaultLayout'
 
-interface IProps {
+interface IProps {}
+
+type StackParamsList = {
+  deviceId: {
+    id: number
+  }
 }
 
 export const ConfigureDeviceScreen: FC<IProps> = ({}) => {
-    return <>
-        <DeviceForm/>
-    </>
+  const route = useRoute<RouteProp<StackParamsList, 'deviceId'>>()
+  return (
+    <DefaultLayout>
+      <Text>{JSON.stringify(route.params.id)}</Text>
+      <DeviceForm isActive />
+    </DefaultLayout>
+  )
 }

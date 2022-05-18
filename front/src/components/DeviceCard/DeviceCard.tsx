@@ -1,15 +1,16 @@
 import React, {FC} from 'react'
-import styled from "@emotion/native";
-import {Box} from "../UI/Box/Box";
-import {Text} from "react-native-paper";
-import {DeviceIcon} from "../UI/Icons/Icons";
-import {useNavigation} from "@react-navigation/native";
+import styled from '@emotion/native'
+import {Box} from '../UI/Box/Box'
+import {Text} from 'react-native-paper'
+import {DeviceIcon} from '../UI/Icons/Icons'
+import {useNavigation} from '@react-navigation/native'
+import {View} from 'react-native'
 
 interface IProps {
-    id: number
-    net: string
-    name: string
-    power: number
+  id: number
+  net: string
+  name: string
+  power: number
 }
 
 const StyledCard = styled.View`
@@ -29,42 +30,33 @@ const StyledDescription = styled.View`
   margin-left: 14px;
 `
 
-
 const StyledText = styled(Text)`
   font-style: normal;
   font-weight: 700;
   font-size: 14px;
   line-height: 19px;
+
   &:nth-of-type(2) {
     margin: 2px 0;
   }
 `
 
 export const DeviceCard: FC<IProps> = ({net, power, name, id}) => {
+  const navigation = useNavigation()
 
-    const navigation = useNavigation()
-
+  return (
     //@ts-ignore
-    return <Box maxWidth={302} onPress={() => navigation.navigate('/device', {id: 1})}>
-        <StyledCard>
-            <DeviceIcon/>
-            <StyledDescription>
-                <StyledText>
-                    {
-                        name
-                    }
-                </StyledText>
-                <StyledText>
-                    {
-                        power
-                    }
-                </StyledText>
-                <StyledText>
-                    {
-                        net
-                    }
-                </StyledText>
-            </StyledDescription>
-        </StyledCard>
+    <Box maxWidth={302} onPress={() => navigation.navigate('/device', {id})}>
+      <StyledCard>
+        <View style={{marginRight: 20}}>
+          <DeviceIcon />
+        </View>
+        <StyledDescription>
+          <StyledText>{name}</StyledText>
+          <StyledText>{power} TH/S</StyledText>
+          <StyledText>{net}</StyledText>
+        </StyledDescription>
+      </StyledCard>
     </Box>
+  )
 }

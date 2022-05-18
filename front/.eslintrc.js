@@ -10,7 +10,13 @@ module.exports = {
         '@typescript-eslint/no-shadow': ['error'],
         'no-shadow': 'off',
         'no-undef': 'off',
+        'no-extra-semi': 'off',
       },
     },
   ],
-};
+  rules: {
+    quotes: ['error', 'single', {allowTemplateLiterals: true}],
+    semi: [2, 'never'],
+    'no-extra-semi': 'off',
+  },
+}

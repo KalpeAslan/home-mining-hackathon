@@ -1,9 +1,8 @@
-import React, {FC} from "react";
-import LinearGradient from "react-native-linear-gradient";
-import {Primary, Secondary} from "../../../styles/themes";
-import styled from "@emotion/native";
-import {TouchableWithoutFeedback} from "react-native";
-
+import React, {FC} from 'react'
+import LinearGradient from 'react-native-linear-gradient'
+import {Primary, Secondary} from '../../../styles/themes'
+import styled from '@emotion/native'
+import {TouchableWithoutFeedback} from 'react-native'
 
 const StyledGradient = styled(LinearGradient)`
   border-radius: 20px;
@@ -11,6 +10,7 @@ const StyledGradient = styled(LinearGradient)`
   justify-content: center;
   align-items: center;
   padding: 3px;
+  margin-bottom: 10px;
 `
 const StyledView = styled.View`
   background: white;
@@ -19,21 +19,24 @@ const StyledView = styled.View`
 `
 
 interface IProps {
-    onPress?: () => void
-    maxWidth?: number
+  onPress?: () => void
+  maxWidth?: number
+  maxHeight?: number
 }
 
-export const Box: FC<IProps> = ({children, maxWidth, onPress}) => {
-    return <TouchableWithoutFeedback onPress={onPress}>
-        <StyledGradient
-            start={{x: 0.0, y: 0.5}} end={{x: 1, y: 0.5}}
-            style={{maxWidth: maxWidth ? maxWidth : '100%'}}
-            colors={[Primary, Secondary]}>
-            <StyledView>
-                {
-                    children
-                }
-            </StyledView>
-        </StyledGradient>
+export const Box: FC<IProps> = ({children, maxWidth, maxHeight, onPress}) => {
+  return (
+    <TouchableWithoutFeedback onPress={onPress}>
+      <StyledGradient
+        start={{x: 0.0, y: 0.5}}
+        end={{x: 1, y: 0.5}}
+        style={{
+          maxWidth: maxWidth ? maxWidth : '100%',
+          maxHeight: maxHeight? maxHeight : 'auto'
+        }}
+        colors={[Primary, Secondary]}>
+        <StyledView>{children}</StyledView>
+      </StyledGradient>
     </TouchableWithoutFeedback>
+  )
 }
