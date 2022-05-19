@@ -6,6 +6,7 @@ export const Primary = '#4650d0'
 export const Secondary = '#ff00e4'
 export const WarningColor = '#ffc107'
 export const TitleColor = '#06287E'
+export const TextSecondary = 'rgba(0, 0, 0, 0.6)'
 
 const fontConfig: {[platform in PlatformOSType | 'default']?: Fonts} = {
   web: {

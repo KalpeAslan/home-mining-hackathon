@@ -1,17 +1,19 @@
 import React, { FC, useEffect } from "react"
 import { DefaultLayout } from "../layouts/DefaultLayout"
 import { useAppDispatch, useTypedSelector } from "../hooks/hooks"
-import { getHashrateInSeconds, setWorkersCount } from "../store/slices/mining/mining.thunk"
+import { setBitcoinMeta } from "../store/slices/mining/mining.thunk"
 import { Box } from "../components/UI/Box/Box"
 import styled from "@emotion/native"
 import { StyledH1, StyledH3, StyledH4 } from "../components/UI/Typography/Typography"
 import { TitleColor } from "../styles/themes"
-import { Text, View } from "react-native"
+import { View, Dimensions } from "react-native"
 import { useCountdown } from "../hooks/useCountDown"
-import { binanceApi } from "../api/binanceApi"
 import { LineChart } from "../components/UI/Charts/LineChart"
-import { Dimensions } from "react-native"
-import { animatedData, GraphData } from "../components/UI/Charts/Graph"
+import { GraphData } from "../types/common.types"
+import { makeGraph } from "../utils/chartUtils"
+import { animatedData, animatedData2, animatedData3, originalData } from "../components/UI/Charts/Graph"
+import { CoinListItem } from "../components/UI/Lists/CoinListItem"
+import { Divider } from "react-native-paper"
 
 const { width } = Dimensions.get("screen")
 
@@ -32,7 +34,12 @@ const GRAPH_WIDTH = CARD_WIDTH - 60
 const CARD_HEIGHT = 325
 const GRAPH_HEIGHT = 200
 
-const graphData: GraphData[] = []
+const graphData: GraphData[] = [
+  makeGraph(originalData),
+  makeGraph(animatedData),
+  makeGraph(animatedData2),
+  makeGraph(animatedData3),
+];
 
 export const MiningScreen: FC = () => {
 
@@ -42,6 +49,7 @@ export const MiningScreen: FC = () => {
     hashRateForDay,
     hashrateForHour,
     workersCount,
+    bitcoinMeta
   } = useTypedSelector(state => state.mining)
 
   const { minutes, hours } = useCountdown("Tue May 17 2022 23:51:10 GMT+0600 (East Kazakhstan Time)")
@@ -49,8 +57,7 @@ export const MiningScreen: FC = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(getHashrateInSeconds())
-    dispatch(setWorkersCount())
+    dispatch(setBitcoinMeta())
   }, [])
 
 
@@ -123,6 +130,13 @@ export const MiningScreen: FC = () => {
       {/*  LineChart*/}
       <LineChart height={CARD_HEIGHT} width={CARD_WIDTH} data={graphData} bottomPadding={20}
                  leftPadding={0} />
+
+      {/*Coins*/}
+      <Divider style={{marginBottom: 30, marginTop: 30}}/>
+      <View>
+        <CoinListItem title={'Bitcoin'} coin={'BTC'} description={'Bitcoin is the first'} bitcoinMeta={bitcoinMeta}/>
+        {/*<CoinListItem title={'Ethereum'} coin={'ETH'} description={'Ethereum is the first'}/>*/}
+      </View>
     </DefaultLayout>
   )
 }

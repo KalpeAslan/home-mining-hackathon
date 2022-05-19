@@ -1,5 +1,8 @@
+import {Path} from 'react-native-redash';
+
 export type GraphData = {
   max: number;
   min: number;
-  curve: string;
+  curve: Path;
+  mostRecent: number;
 };

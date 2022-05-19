@@ -1,3 +1,8 @@
+import { DataPoint } from "../components/UI/Charts/Graph"
+import { curveBasis, line, scaleLinear, scaleTime } from "d3"
+import { GRAPH_HEIGHT, GRAPH_WIDTH } from "../components/UI/Charts/LineChart"
+import {parse} from 'react-native-redash';
+
 export const makeGraph = (data: DataPoint[]) => {
   const max = Math.max(...data.map(val => val.value));
   const min = Math.min(...data.map(val => val.value));

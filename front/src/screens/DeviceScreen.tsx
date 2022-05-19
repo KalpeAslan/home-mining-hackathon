@@ -8,7 +8,7 @@ import {TWorkMode} from '../types/devices.types'
 import {changeDeviceWorkModeThunk} from '../store/slices/devices/devices.thunk'
 import RNSpeedometer from 'react-native-speedometer'
 import {DeviceForm} from '../components/Forms/DeviceForm'
-import {WarningButton} from '../components/UI/Buttons/Buttons'
+import { StyledButton, WarningButton } from "../components/UI/Buttons/Buttons"
 import {Button} from 'react-native-paper'
 
 interface IProps {}
@@ -97,23 +97,21 @@ export const DeviceScreen: FC<IProps> = ({}) => {
         </View>
       )}
       {/*@ts-ignore*/}
-      <DeviceForm
-        isActive={false}
-        onPress={() =>
-          navigation.navigate('/configure-device', {id: route.params.id})
-        }
-      />
+      <DeviceForm isActive={false} onPress={() => navigation.navigate('/configure-device', {id: route.params.id})} />
 
       <Button
         mode={'outlined'}
-        color={'red'}
         style={{
-          borderColor: 'red',
-          borderWidth: 1,
+          backgroundColor: 'white',
           marginTop: 10,
           marginBottom: 10,
+          borderRadius: 8,
+          borderColor: 'red',
+          borderWidth: 1
         }}>
-        <Text style={{fontFamily: 'gadugi-normals'}}>Reboot Miner</Text>
+        <Text style={{color: 'red'}}>
+          Reboot Miner
+        </Text>
       </Button>
     </DefaultLayout>
   )

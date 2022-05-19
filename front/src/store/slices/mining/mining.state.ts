@@ -7,6 +7,19 @@ interface IState {
   hashrateForHour?: number
   workersCount?: number
   isLoading: boolean
+
+  bitcoinMeta?: ICoinMeta
+}
+
+
+export interface ICoinMeta {
+  usdPrice?: number
+  probability?: number | string
+  eta?: number
+  diff?: number | string
+  bcperblock?: number | string
+  hashestowin?: number | string
+  avgtxvalue?: number | string
 }
 
 export const initialState: IState = {

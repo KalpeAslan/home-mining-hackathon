@@ -1,78 +1,128 @@
 import React, {FC} from 'react';
-import { SafeAreaView, View, Text, StyleSheet} from 'react-native';
+import { StyleSheet, SafeAreaView, View, Text, Dimensions } from "react-native"
 
-import Animated from 'react-native-reanimated';
+import Animated, {
+  useAnimatedProps,
+  useDerivedValue,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
 import {G, Line, Path, Svg} from 'react-native-svg';
+import {mixPath, ReText} from 'react-native-redash';
+import { ButtonSection } from '../Buttons/ButtonSection';
+import { GraphData } from "../../../types/common.types"
 
-import {GraphData} from './Graph';
-import { ButtonSection } from '../Buttons/ButtonSection'
+
+
+const {width} = Dimensions.get('screen');
+
+export const CARD_WIDTH = width - 20;
+export const GRAPH_WIDTH = CARD_WIDTH - 60;
+export const CARD_HEIGHT = 325;
+export const GRAPH_HEIGHT = 200;
+
 
 type LineChartProps = {
-    height: number;
-    width: number;
-    data: GraphData[];
-    leftPadding: number;
-    bottomPadding: number;
+  height: number;
+  width: number;
+  data: GraphData[];
+  leftPadding: number;
+  bottomPadding: number;
 };
+
+const AnimatedPath = Animated.createAnimatedComponent(Path);
 
 export const LineChart: FC<LineChartProps> = ({
-                                           height,
-                                           width,
-                                           data,
-                                           bottomPadding,
-                                           leftPadding,
-                                       }) => {
-    return (
-      <SafeAreaView style={styles.container}>
-          <View style={styles.titleContainer}>
-              <Text style={styles.titleText}>FACEBOOK</Text>
-              <Text style={styles.titleText}>0</Text>
-          </View>
-          <Animated.View style={styles.chartContainer}>
-              <Svg width={width} height={height} stroke="#6231ff">
-                  <G y={-bottomPadding}>
-                      <Line
-                        x1={leftPadding}
-                        y1={height}
-                        x2={width}
-                        y2={height}
-                        stroke={'#d7d7d7'}
-                        strokeWidth="1"
-                      />
-                      <Line
-                        x1={leftPadding}
-                        y1={height * 0.6}
-                        x2={width}
-                        y2={height * 0.6}
-                        stroke={'#d7d7d7'}
-                        strokeWidth="1"
-                      />
-                      <Line
-                        x1={leftPadding}
-                        y1={height * 0.2}
-                        x2={width}
-                        y2={height * 0.2}
-                        stroke={'#d7d7d7'}
-                        strokeWidth="1"
-                      />
-                   <Text>
-                     {
-                       data && data.length && <Path d={data[0].curve} strokeWidth="2" />
-                     }
-                   </Text>
-                  </G>
-              </Svg>
-          </Animated.View>
-          <ButtonSection
-            q1Tapped={() => {}}
-            q2Tapped={() => {}}
-            q3Tapped={() => {}}
-            q4Tapped={() => {}}
-          />
-      </SafeAreaView>
-    );
-};
+                                         height,
+                                         width,
+                                         data,
+                                         bottomPadding,
+                                         leftPadding,
 
+                                       }) => {
+  const selectedGraph = useSharedValue(data[0]);
+  const previousGraph = useSharedValue({...data[0]});
+  const isAnimationComplete = useSharedValue(true);
+  const transition = useSharedValue(1);
+
+  const onQuarterTapped = (quarter: number) => {
+    if (isAnimationComplete.value) {
+      isAnimationComplete.value = false;
+      transition.value = 0;
+      selectedGraph.value = data[quarter - 1];
+
+      transition.value = withTiming(1, {}, () => {
+        previousGraph.value = selectedGraph.value;
+        isAnimationComplete.value = true;
+      });
+    }
+  };
+
+  const animatedProps = useAnimatedProps(() => {
+    return {
+      d: mixPath(
+        transition.value,
+        previousGraph.value.curve,
+        selectedGraph.value.curve,
+      ),
+    };
+  });
+
+  const mostRecent = useDerivedValue(() => {
+    return `$${selectedGraph.value.mostRecent}`;
+  });
+
+  const q1Tapped = () => onQuarterTapped(1);
+  const q2Tapped = () => onQuarterTapped(2);
+  const q3Tapped = () => onQuarterTapped(3);
+  const q4Tapped = () => onQuarterTapped(4);
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.titleContainer}>
+        <Text style={styles.titleText}>FACEBOOK</Text>
+        <ReText style={styles.priceText} text={mostRecent} />
+      </View>
+      <Animated.View style={styles.chartContainer}>
+        <Svg width={width} height={height} stroke="#6231ff">
+          <G y={-bottomPadding}>
+            <Line
+              x1={leftPadding}
+              y1={height}
+              x2={width}
+              y2={height}
+              stroke={'#d7d7d7'}
+              strokeWidth="1"
+            />
+            <Line
+              x1={leftPadding}
+              y1={height * 0.6}
+              x2={width}
+              y2={height * 0.6}
+              stroke={'#d7d7d7'}
+              strokeWidth="1"
+            />
+            <Line
+              x1={leftPadding}
+              y1={height * 0.2}
+              x2={width}
+              y2={height * 0.2}
+              stroke={'#d7d7d7'}
+              strokeWidth="1"
+            />
+            <AnimatedPath animatedProps={animatedProps} strokeWidth="2" />
+          </G>
+        </Svg>
+      </Animated.View>
+      <ButtonSection
+        q1Tapped={q1Tapped}
+        q2Tapped={q2Tapped}
+        q3Tapped={q3Tapped}
+        q4Tapped={q4Tapped}
+      />
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

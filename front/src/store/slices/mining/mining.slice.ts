@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { initialState } from "./mining.state"
-import { getHashrateInSeconds, setWorkersCount } from "./mining.thunk"
+import { setBitcoinMeta } from "./mining.thunk"
 import { utils } from "../../../utils/utils"
 
 const miningSlice = createSlice({
@@ -8,24 +8,18 @@ const miningSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(getHashrateInSeconds.pending, (state) => {
+
+    builder.addCase(setBitcoinMeta.pending, (state) => {
       state.isLoading = true
     })
 
-    builder.addCase(getHashrateInSeconds.fulfilled, (state, action) => {
-      state.hashrateForSecond = Math.floor(utils.gigaToExa(action.payload as unknown as number))
-      state.hashrateForHour = Math.floor(utils.gigaToExa(action.payload as unknown as number) + (Math.floor(Math.random() * 10) * Math.round(Math.random()) * 2 - 1))
-      state.hashRateForDay = Math.floor(state.hashrateForHour + (Math.floor(Math.random() * 10) * Math.round(Math.random()) * 2 - 1))
+    builder.addCase(setBitcoinMeta.fulfilled, (state, action) => {
       state.isLoading = false
+      state.bitcoinMeta = action.payload
     })
 
-    builder.addCase(setWorkersCount.pending, state => {
-      state.isLoading = true
-    })
-
-    builder.addCase(setWorkersCount.fulfilled, (state, action) => {
+    builder.addCase(setBitcoinMeta.rejected, (state) => {
       state.isLoading = false
-      state.workersCount = action.payload
     })
 
   },

@@ -28,7 +28,6 @@ export const AuthForm: FC<IProps> = ({}) => {
             {
               type: 'email',
               name: 'email',
-
               rules: {
                 required: {
                   value: true,
