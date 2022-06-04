@@ -1,25 +1,23 @@
-import React, { FC, useMemo } from "react"
+import React, { FC, useEffect, useMemo, useState } from "react"
 import { List, Text } from "react-native-paper"
 import { BitcoinSvg } from "../Icons/Icons"
+import { NFTIcon } from "../Icons/NFTIcon"
 import styled from "@emotion/native"
-import { View } from "react-native"
-import { TextSecondary } from "../../../styles/themes"
-import { ICoinMeta } from "../../../store/slices/mining/mining.state"
+import { TouchableOpacity, View } from "react-native"
+import { StyledCoinList } from "./stylesList"
+import { converterApi } from "../../../api/converterApi"
+import { utils } from "../../../utils/utils"
 
 interface IProps {
   title: string
-  description?: string
-  coin?: "BTC" | "ETH"
-  bitcoinMeta?: ICoinMeta
+  coin: "BTC" | "ETH" | string
+  amount?: string | number
+  amountInUsd?: string | number
+  customConvertToUsd?: boolean
+  profit?: boolean
+  onPress?: () => void
 }
 
-const StyledAccordion = styled.View`
-  border: 1px solid #e0e0e0;
-  max-width: 100%;
-  width: 100%;
-  padding: 0;
-  border-radius: 4px;
-`
 
 const IconContainer = styled.View`
   transform: scale(0.5);
@@ -28,82 +26,49 @@ const IconContainer = styled.View`
 `
 
 
-export const CoinListItem: FC<IProps> = ({ title, description, coin, bitcoinMeta }) => {
-  // return <StyledListItem title={title} description={description || ''}
-  //                   left={() => (coin === 'BTC' || !coin) && <IconContainer><BitcoinSvg/></IconContainer>}
-  // />
+export const CoinListItem: FC<IProps> = ({ title, coin, amount, amountInUsd, customConvertToUsd, profit, onPress }) => {
 
 
-  const metaCoinInfo = useMemo(() => {
-    if (coin === "BTC" || !coin && bitcoinMeta) {
-      return bitcoinMeta
+  const [amountInUsdState, setAmountInUsd] = useState("")
+
+  useEffect(() => {
+    (async () => {
+      if (!customConvertToUsd) return setAmountInUsd(amountInUsd as string)
+      try {
+        const usd = await converterApi.btcToUsd(Number(amount || 0))
+        setAmountInUsd(usd)
+      } catch (e) {
+        console.log(e)
+      }
+    })()
+  }, [customConvertToUsd, amountInUsd, amount])
+
+
+  const computedIcon = useMemo(() => {
+    switch (coin) {
+      case "NFT":
+        return <NFTIcon />
+      case "BTC":
+        return <IconContainer><BitcoinSvg /></IconContainer>
+      default:
+        return <IconContainer><BitcoinSvg /></IconContainer>
     }
-    return {}
-  }, [bitcoinMeta])
+  }, [coin])
 
-  const { avgtxvalue, hashestowin, probability, eta, bcperblock, diff } = metaCoinInfo as ICoinMeta || {}
+  const content = useMemo(() => {
+    return <StyledCoinList style={{ marginBottom: 10 }}>
+      <List.Item
+        style={{ padding: 0, width: "100%", backgroundColor: "white" }}
+        title={title}
+        right={() => (amount && coin &&
+          <View style={{ justifyContent: "center", paddingRight: 10 }}><Text
+            style={{ color: profit ? "green" : "" }}>{`${profit ? "+ " : ""}${amount} ${coin}`}</Text></View>)}
+        left={() => computedIcon}
+        description={amountInUsdState && `~$ ${utils.normalizeSum(amountInUsdState)}`}
+      />
+    </StyledCoinList>
+  }, [computedIcon, amountInUsdState, coin, amount, title, profit])
 
 
-  return <>
-    <StyledAccordion>
-      <List.Accordion
-        style={{padding: 0}}
-        title={"Bitcoin"}
-        left={() => <IconContainer><BitcoinSvg /></IconContainer>}
-      >
-        <List.Item title={probability} description={'Вероятность нахождения блока'}/>
-        <List.Item title={diff} description={'Сложность нахождения блока'}/>
-        <List.Item title={`${eta} сек`} description={'Примерное время до следующего блока'}/>
-        <List.Item title={`${bcperblock} BTC`} description={'Текущее вознаграждение за блок'}/>
-        <List.Item title={hashestowin} description={'Среднее кол-во попыток хэширования, для решения блока'}/>
-        <List.Item title={avgtxvalue} description={'Средняя стоимость транзакции'}/>
-      </List.Accordion>
-    </StyledAccordion>
-  </>
-  // return <StyledListItemContainer>
-  //   <IconContainer><BitcoinSvg /></IconContainer>
-  //   <View style={{ width: "100%" }}>
-  //     <ViewSpaceBetween>
-  //       <Text style={{ flex: 0.5 }}>
-  //         Bitcoin
-  //       </Text>
-  //       <Text style={{ flex: 0.5, marginLeft: 120 }}>
-  //         Eth
-  //       </Text>
-  //     </ViewSpaceBetween>
-  //     <ViewSpaceBetween>
-  //       <StyledDescriptionText style={{ flex: 0.5 }}>
-  //         Bitcoin
-  //       </StyledDescriptionText>
-  //       <StyledDescriptionText style={{ flex: 0.5, marginLeft: 120 }}>
-  //         Eth
-  //       </StyledDescriptionText>
-  //     </ViewSpaceBetween>
-  //   </View>
-  // </StyledListItemContainer>
+  return onPress ? <TouchableOpacity style={{width: '100%'}} onPress={onPress}>{content}</TouchableOpacity> : content
 }
-
-
-// const StyledListItemContainer = styled.View`
-//   border: 1px solid #e0e0e0;
-//   max-width: 100%;
-//   width: 100%;
-//   padding: 0;
-//   border-radius: 4px;
-//   flex-direction: row;
-//   justify-content: flex-start;
-//   align-items: center;
-// `
-
-//
-// const ViewSpaceBetween = styled.View`
-//   width: 100%;
-//   flex-direction: row;
-// `
-// const StyledTitleText = styled(Text)`
-// `
-//
-//
-// const StyledDescriptionText = styled(Text)`
-//   color: ${TextSecondary};
-// `

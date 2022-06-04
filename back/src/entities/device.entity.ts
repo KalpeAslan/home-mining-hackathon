@@ -20,4 +20,7 @@ export class DeviceEntity {
 
     @Column({type: 'timestamptz', nullable: true})
     lastPaymentDate: string
+
+    @Column({length: 10})
+    leasingStatus: string
 }

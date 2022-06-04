@@ -1,16 +1,5 @@
 import {IDevice} from '../../../types/devices.types'
-
-interface IState {
-  hashrateForSecond?: number
-  hashRateForDay?: number
-  hashrateForYear?: number
-  hashrateForHour?: number
-  workersCount?: number
-  isLoading: boolean
-
-  bitcoinMeta?: ICoinMeta
-}
-
+import { IEarningList } from "../../../types/common.types"
 
 export interface ICoinMeta {
   usdPrice?: number
@@ -22,6 +11,18 @@ export interface ICoinMeta {
   avgtxvalue?: number | string
 }
 
+interface IState {
+  hashrateForSecond?: number
+  hashRateForDay?: number
+  hashrateForYear?: number
+  hashrateForHour?: number
+  workersCount?: number
+  isLoading: boolean
+  earningList?: IEarningList
+  bitcoinMeta?: ICoinMeta
+}
+
 export const initialState: IState = {
   isLoading: false
+
 }

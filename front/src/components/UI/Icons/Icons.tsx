@@ -1,5 +1,8 @@
 import React, {memo} from 'react'
-import Svg, {Path} from 'react-native-svg'
+import Svg, { G, Path } from "react-native-svg"
+
+
+//cube-outline IoniIcons
 
 export const DeviceIcon = memo(() => (
   <Svg width="58" height="58" fill="none" viewBox="0 0 58 58">

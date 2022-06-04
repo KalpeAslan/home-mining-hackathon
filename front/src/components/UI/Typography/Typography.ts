@@ -6,6 +6,12 @@ export const StyledH1 = styled(Text)`
   font-size: 34px;
 `
 
+export const StyledH2 = styled(Text)`
+  font-family: gadugi-bold;
+  font-size: 24px;
+`
+
+
 export const StyledH3 = styled(Text)`
   font-family: gadugi-bold;
   font-size: 18px;

@@ -2,6 +2,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit'
 import { bitcoinApi } from "../../../api/bitcoinApi"
 import {  ICoinMeta } from "./mining.state"
 import { utils } from "../../../utils/utils"
+import { miningApi } from "../../../api/miningApi"
 
 
 
@@ -18,10 +19,21 @@ export const setBitcoinMeta = createAsyncThunk(
         eta: Math.floor(await bitcoinApi.eta()),
         avgtxvalue: await bitcoinApi.avgtxvalue()
       }
-      console.log(bitcoinMeta)
       return bitcoinMeta
     } catch (e) {
 
+    }
+  }
+)
+
+
+export const setEarningList = createAsyncThunk(
+  'setEarningList',
+  async () => {
+    try {
+      return miningApi.getEarningList()
+    } catch (e) {
+      console.log(e)
     }
   }
 )

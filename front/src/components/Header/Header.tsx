@@ -1,8 +1,8 @@
-import React, {FC} from 'react'
-import {Appbar} from 'react-native-paper'
-import {useNavigation} from '@react-navigation/native'
-import styled from '@emotion/native'
-import {TitleColor} from '../../styles/themes'
+import React, {FC} from "react"
+import {Appbar} from "react-native-paper"
+import {useNavigation, useRoute} from "@react-navigation/native"
+import styled from "@emotion/native"
+import {TitleColor} from "../../styles/themes"
 
 const {Header, BackAction, Content, Action} = Appbar
 
@@ -14,12 +14,17 @@ const StyledHeader = styled(Header)`
 `
 
 export const HeaderNav: FC = ({}) => {
-  const navigation = useNavigation()
-  return (
-    <StyledHeader>
-      <BackAction onPress={() => navigation.goBack()} />
-      <Content color={TitleColor} title={'Settings'} />
-      <Action icon={'face-man'} />
-    </StyledHeader>
-  )
+    const navigation = useNavigation()
+
+    const route = useRoute()
+
+    return (
+        <StyledHeader>
+            {
+                navigation.canGoBack() && <BackAction onPress={() => navigation.goBack()}/>
+            }
+            <Content color={TitleColor} title={route.name}/>
+            <Action icon={"face-man"}/>
+        </StyledHeader>
+    )
 }

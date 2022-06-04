@@ -1,7 +1,9 @@
-import { DataPoint } from "../components/UI/Charts/Graph"
+import {DataPoint, datas} from "../components/UI/Charts/Graph"
 import { curveBasis, line, scaleLinear, scaleTime } from "d3"
 import { GRAPH_HEIGHT, GRAPH_WIDTH } from "../components/UI/Charts/LineChart"
 import {parse} from 'react-native-redash';
+import {LineChartData} from "react-native-chart-kit/dist/line-chart/LineChart";
+import {IEarningList} from "../types/common.types";
 
 export const makeGraph = (data: DataPoint[]) => {
   const max = Math.max(...data.map(val => val.value));
@@ -9,7 +11,7 @@ export const makeGraph = (data: DataPoint[]) => {
   const y = scaleLinear().domain([0, max]).range([GRAPH_HEIGHT, 35]);
 
   const x = scaleTime()
-    .domain([new Date(2000, 1, 1), new Date(2000, 1, 15)])
+      .domain([Math.min(...data.map(val => new Date(val.date).getTime())), Math.max(...data.map(val => new Date(val.date).getTime()))])
     .range([10, GRAPH_WIDTH - 10]);
 
   const curvedLine = line<DataPoint>()
@@ -21,6 +23,19 @@ export const makeGraph = (data: DataPoint[]) => {
     max,
     min,
     curve: parse(curvedLine!),
-    mostRecent: data[data.length - 1].value,
+    mostRecent: data.length ? data[data.length - 1].value : 0,
   };
 };
+
+
+
+export const accEarningListToChartData = (earningList: IEarningList): LineChartData => {
+  return {
+    labels: earningList.data.accountProfits.map(value => new Date(value.time).toLocaleDateString('default', {month: 'long'})),
+    datasets: [
+      {
+        data: earningList.data.accountProfits.map(value => value.profitAmount)
+      }
+    ]
+  }
+}

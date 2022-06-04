@@ -3,15 +3,15 @@ import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
 import {MiningScreen} from '../screens/MiningScreen'
 import {SettingScreen} from '../screens/Settings'
-import {WalletScreen} from '../screens/Wallet'
+import {WalletScreen} from '../screens/WalletScreen'
 import {BottomNav} from '../components/BottomNav/BottomNav'
-import {HeaderNav} from '../components/Header/Header'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import {DeviceScreen} from '../screens/DeviceScreen'
 import {useTypedSelector} from '../hooks/hooks'
 import {AuthScreen} from '../screens/AuthScreen'
 import {ConfigureDeviceScreen} from '../screens/ConfigureDeviceScreen'
 import {TransitionSpec} from '@react-navigation/stack/lib/typescript/src/types'
+import { WalletCoinTransactionScreen } from "../screens/WalletCoinTransactionScreen"
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -86,6 +86,19 @@ const Mining = () => {
   </Stack.Navigator>
 }
 
+
+export const Wallet = () => {
+  return <Stack.Navigator
+    screenOptions={{
+      headerShown: false,
+      gestureEnabled: true,
+      gestureDirection: 'horizontal',
+    }}>
+    <Stack.Screen name={'/wallet'} component={WalletScreen} />
+    <Stack.Screen name={'/wallet-coin-transactions'} component={WalletCoinTransactionScreen} />
+  </Stack.Navigator>
+}
+
 export const Router: FC = () => {
   const {isSigned} = useTypedSelector(state => state.auth)
 
@@ -94,7 +107,6 @@ export const Router: FC = () => {
       <NavigationContainer>
         {!isSigned ? (
           <>
-            <HeaderNav />
             <Tab.Navigator
               tabBar={props => <BottomNav {...props} />}
               screenOptions={{
@@ -114,7 +126,7 @@ export const Router: FC = () => {
               <Tab.Screen
                 options={{title: 'Wallet'}}
                 name="Wallet"
-                component={WalletScreen}
+                component={Wallet}
               />
             </Tab.Navigator>
           </>

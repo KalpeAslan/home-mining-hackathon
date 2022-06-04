@@ -1,7 +1,7 @@
 import {FC} from 'react'
 import {MiningScreen} from '../screens/MiningScreen'
 import {SettingScreen} from '../screens/Settings'
-import {WalletScreen} from '../screens/Wallet'
+import {WalletScreen} from '../screens/WalletScreen'
 import {DeviceScreen} from '../screens/DeviceScreen'
 
 export interface IRoute {

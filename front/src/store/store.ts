@@ -6,13 +6,15 @@ import {
 import authReducer from './slices/auth/auth.slice'
 import deviceReducer from './slices/devices/devices.slice'
 import miningSlice from './slices/mining/mining.slice'
+import walletSlice from './slices/wallet/wallet.slice'
 
 
 
 const reducer = combineReducers({
   auth: authReducer,
   devices: deviceReducer,
-  mining: miningSlice
+  mining: miningSlice,
+  wallet: walletSlice
 })
 
 const middleware = getDefaultMiddleware({

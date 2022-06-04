@@ -1,3 +1,5 @@
+import { charts } from "./charts"
+
 export type DataPoint = {
   date: string;
   value: number;
@@ -61,3 +63,6 @@ export const animatedData3: DataPoint[] = [
   {date: '2000-02-14T05:00:00.000Z', value: 100.0},
   {date: '2000-02-15T05:00:00.000Z', value: 900.53},
 ];
+
+
+export const datas = charts.map((value) => ({date: new Date().toString(), value: value.x + value.y}))

@@ -15,7 +15,7 @@ export class UserEntity {
     @Column({length: 5, default: UserRoles.USER, enum: UserRoles})
     role: UserRoles
 
-    @Column({length: 321})
+    @Column({length: 321, type: 'varchar'})
     email: string
 
     @Column({length: 32})
@@ -24,17 +24,26 @@ export class UserEntity {
     @Column({length: 4})
     pin: string
 
-    @Column({length: 10})
-    leasingStatus: string
+
+    @Column({type: 'boolean', default: false, nullable: true})
+    isApproved: boolean
 
     @OneToMany(() => DeviceEntity, deviceEntity => deviceEntity.id)
     @JoinTable()
     devices: DeviceEntity[]
 
-
     @OneToMany(() => WalletEntity, walletEntity => walletEntity.id)
     @JoinTable()
     wallets: WalletEntity[]
+
+    @Column({length: 64, nullable: true})
+    refreshToken: string
+
+    @Column({length: 64, nullable: true})
+    authToken: string
+
+    @Column({nullable: true})
+    binanceUid: string
 
     @Column({nullable: true})
     name: string

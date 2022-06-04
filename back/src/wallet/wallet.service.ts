@@ -1,20 +1,35 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { WalletEntity } from "../entities/wallet.entity";
+import { Repository } from "typeorm";
+import { WalletDto } from "./dto/wallet.dto";
+import { UserEntity } from "../entities/user.entity";
 
 @Injectable()
 export class WalletService {
 
-    public async addWallet(){
-    }
+  constructor(
+    @InjectRepository(WalletEntity)
+    private readonly walletRepository: Repository<WalletEntity>
+  ) {
+  }
 
-    public async updateWallet(){
-    }
+  public async addWallet(walletDto: WalletDto, user: UserEntity): Promise<UserEntity> {
+    return await this.walletRepository.save({
+      ...walletDto,
+      ...user
+    });
+  }
 
-    public async stripBalance(){
-    }
+  public async updateWallet() {
+  }
 
-    public async swapBalance(){
-    }
+  public async stripBalance() {
+  }
 
-    public async addBalance(){
-    }
+  public async swapBalance() {
+  }
+
+  public async addBalance() {
+  }
 }

@@ -1,16 +1,14 @@
-import React, {FC, Fragment, useCallback, useState} from 'react'
-import {FormBuilder} from 'react-native-paper-form-builder'
-import {NestedValue, useForm} from 'react-hook-form'
-import {LogicProps} from 'react-native-paper-form-builder/dist/Types/Types'
-import {Button, Switch, Text, TextInput} from 'react-native-paper'
+import React, { FC, Fragment, useCallback, useState } from "react"
+import { FormBuilder } from "react-native-paper-form-builder"
+import { NestedValue, useForm } from "react-hook-form"
+import { LogicProps } from "react-native-paper-form-builder/dist/Types/Types"
+import { Button, TextInput } from "react-native-paper"
 import {
-  ScrollView,
-  TouchableOpacity,
   TouchableWithoutFeedback,
   View,
-} from 'react-native'
-import {UseFormReset} from 'react-hook-form/dist/types/form'
-import {Checkbox} from '../UI/Inputs/Checkbox'
+} from "react-native"
+import { UseFormReset } from "react-hook-form/dist/types/form"
+import { StyledH3 } from "../UI/Typography/Typography"
 
 interface IProps {
   isActive: boolean
@@ -21,7 +19,7 @@ interface IForm {
   ipAddress: string
   minerDns: string
   poolInformation: NestedValue<IPoolInformation>
-  workMode: 'normal' | 'high'
+  workMode: "normal" | "high"
 }
 
 interface IPoolInformation {
@@ -32,46 +30,44 @@ interface IPoolInformation {
   workerpasswd: string
 }
 
-export const DeviceForm: FC<IProps> = ({isActive, onPress}) => {
-  const {control, setFocus, handleSubmit, reset} = useForm<IForm>({
+export const DeviceForm: FC<IProps> = ({ isActive, onPress }) => {
+  const { control, setFocus, handleSubmit, reset } = useForm<IForm>({
     defaultValues: {
-      workMode: 'normal',
-      minerDns: 'SSS',
-      ipAddress: '',
+      workMode: "normal",
+      minerDns: "SSS",
+      ipAddress: "",
       //@ts-ignore
       poolInformation: {
-        username: 'Aslan',
-        password: '',
-        pooladdr: '',
-        worker: '',
-        workerpasswd: '',
+        username: "Aslan",
+        password: "",
+        pooladdr: "",
+        worker: "",
+        workerpasswd: "",
       },
     },
   })
   const _formValues = control._formValues as IForm
 
-  const formConfigArray: Array<
-    Omit<LogicProps, 'control'> | Array<Omit<LogicProps, 'control'>>
-  > = [
+  const formConfigArray: Array<Omit<LogicProps, "control"> | Array<Omit<LogicProps, "control">>> = [
     {
-      name: 'ipAddress',
-      type: 'text',
+      name: "ipAddress",
+      type: "text",
       textInputProps: {
-        label: 'Ip Address',
+        label: "Ip Address",
         editable: isActive,
       },
     },
     {
-      name: 'minerDns',
-      type: 'text',
+      name: "minerDns",
+      type: "text",
       textInputProps: {
-        label: 'Miner DNS',
+        label: "Miner DNS",
         editable: isActive,
       },
     },
     {
-      name: 'poolInformation',
-      type: 'custom',
+      name: "poolInformation",
+      type: "custom",
       JSX: () => (
         <PoolInformation
           isActive={isActive}
@@ -84,10 +80,6 @@ export const DeviceForm: FC<IProps> = ({isActive, onPress}) => {
 
   return (
     <>
-      <Text>{_formValues.poolInformation.username}</Text>
-
-      <Text>{_formValues.minerDns}</Text>
-
       <TouchableWithoutFeedback onPress={onPress}>
         <View>
           <FormBuilder
@@ -99,7 +91,7 @@ export const DeviceForm: FC<IProps> = ({isActive, onPress}) => {
       </TouchableWithoutFeedback>
       {isActive && (
         <Button
-          mode={'contained'}
+          mode={"contained"}
           onPress={handleSubmit(data => console.log(data))}>
           Submit
         </Button>
@@ -115,10 +107,10 @@ interface IPropsPoolInformation {
 }
 
 const PoolInformation: FC<IPropsPoolInformation> = ({
-  values,
-  reset,
-  isActive,
-}) => {
+                                                      values,
+                                                      reset,
+                                                      isActive,
+                                                    }) => {
   const handleChange = useCallback(
     (key: keyof IForm | keyof IPoolInformation) => {
       return (value: any) => {
@@ -128,9 +120,8 @@ const PoolInformation: FC<IPropsPoolInformation> = ({
         if (key in defaultValues.poolInformation) {
           //@ts-ignore
           defaultValues.poolInformation[key] = value
-        }
-        //@ts-ignore
-        else {
+        } else {
+          //@ts-ignore
           defaultValues[key] = value
         }
         reset(defaultValues)
@@ -141,28 +132,28 @@ const PoolInformation: FC<IPropsPoolInformation> = ({
 
   const computeLabel = useCallback((key: keyof IPoolInformation) => {
     switch (key) {
-      case 'password':
-        return 'Password'
-      case 'pooladdr':
-        return 'Pool Address'
-      case 'username':
-        return 'Username'
-      case 'worker':
-        return 'Worker Name'
-      case 'workerpasswd':
-        return 'Worker Password'
+      case "password":
+        return "Password"
+      case "pooladdr":
+        return "Pool Address"
+      case "username":
+        return "Username"
+      case "worker":
+        return "Worker Name"
+      case "workerpasswd":
+        return "Worker Password"
     }
   }, [])
 
   return (
     <View>
-      <Text children={'Pool Information'} />
+      <StyledH3 style={{marginBottom: 10}} children={"Информация о пуле"} />
       {Object.entries(values.poolInformation).map(
         ([key, value]: Array<keyof IPoolInformation>) => (
           <Fragment key={key}>
             <TextInput
               editable={isActive}
-              mode={'outlined'}
+              mode={"outlined"}
               label={computeLabel(key)}
               value={value}
               onChangeText={handleChange(key)}

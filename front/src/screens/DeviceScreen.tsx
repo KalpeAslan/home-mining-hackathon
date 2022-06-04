@@ -8,7 +8,6 @@ import {TWorkMode} from '../types/devices.types'
 import {changeDeviceWorkModeThunk} from '../store/slices/devices/devices.thunk'
 import RNSpeedometer from 'react-native-speedometer'
 import {DeviceForm} from '../components/Forms/DeviceForm'
-import { StyledButton, WarningButton } from "../components/UI/Buttons/Buttons"
 import {Button} from 'react-native-paper'
 
 interface IProps {}
@@ -71,7 +70,6 @@ export const DeviceScreen: FC<IProps> = ({}) => {
 
   return (
     <DefaultLayout>
-      <Text>Device Page {String(route.params.id)}</Text>
       <View style={{marginBottom: 50}}>
         <RNSpeedometer
           labels={speedometerLabels}
